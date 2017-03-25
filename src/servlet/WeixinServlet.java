@@ -57,9 +57,10 @@ public class WeixinServlet extends HttpServlet {
 		//request.setCharacterEncoding("gbk");
 		//response.setCharacterEncoding("gbk");
        PrintWriter out = response.getWriter();
-       try {
-    	   
-		Map<String, String> map = messagexml.xmltomap(request);
+
+    	   messagexml mp = new messagexml();
+    	  
+		Map<String, String> map =mp.xmltomap(request);
 		//Map<String, String> map =new HashMap<String,String>();
 		
 		String fromusername = map.get("FromUserName");
@@ -79,10 +80,9 @@ public class WeixinServlet extends HttpServlet {
 			System.out.println(message);
 		}
 		out.print(message);
-       }
-       finally{
-    	   out.close(); 
-       }
+       
+       
+      
        
 	}
 

@@ -7,18 +7,23 @@ import org.dom4j.*;
 import org.dom4j.io.*;
 import pojo.textnaessage;
 import com.thoughtworks.xstream.*;
+
+import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 
 public class messagexml {
 
-	  public static Map<String,String> xmltomap(HttpServletRequest request) {
+	  public static Map<String,String> xmltomap(HttpServletRequest request) throws IOException {
+		  System.out.println("00000000000000000000000");
 		  Map<String,String> map = new HashMap<String,String>();
-		  SAXReader reader = new SAXReader();
-		  InputStream ins;
+		  ServletInputStream ins;
 		  Document doc;
 		try {
-			ins = request.getInputStream();
-			  doc= reader.read(ins);
+			System.out.println("1=================================1");
+			 ins = request.getInputStream();
+			 System.out.println("2=================================2");
+			 SAXReader reader = new SAXReader();
+			 doc= reader.read(ins);
 			  Element root = doc.getRootElement();
 			  List<Element> list=  root.elements();
 			  for(Element e:list){
@@ -27,7 +32,7 @@ public class messagexml {
 		
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
-			System.out.println("=================================");
+			
 			e1.printStackTrace();
 			System.out.println("=================================");
 		} catch (DocumentException e1) {
@@ -35,6 +40,9 @@ public class messagexml {
 			System.out.println("+++++++++++++++++++++++++++++++++++");
 			e1.printStackTrace();
 			System.out.println("+++++++++++++++++++++++++++++++++++++++");
+		}finally{
+			
+			ins = null;
 		}
 		  return map;
 		 
