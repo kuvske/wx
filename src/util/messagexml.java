@@ -14,14 +14,14 @@ import javax.servlet.http.HttpServletRequest;
 public class messagexml {
 
 	  public static Map<String,String> xmltomap(HttpServletRequest request) throws IOException {
-		  System.out.println("00000000000000000000000");
+		  
 		  Map<String,String> map = new HashMap<String,String>();
 		  ServletInputStream ins;
 		  Document doc;
 		try {
-			System.out.println("1=================================1");
+		
 			 ins = request.getInputStream();
-			 System.out.println("2=================================2");
+		
 			 SAXReader reader = new SAXReader();
 			 doc= reader.read(ins);
 			  Element root = doc.getRootElement();
@@ -50,6 +50,9 @@ public class messagexml {
 	  
 	  public static String textmessageTOxml(textnaessage str){
 		XStream xr = new XStream();
+		System.out.println("99999999999999999999999999");
+		System.out.println(str.getClass());
+		xr.alias("xml", str.getClass());
 		return xr.toXML(str);
 	  }
 	  
