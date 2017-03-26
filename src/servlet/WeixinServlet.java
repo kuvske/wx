@@ -66,16 +66,18 @@ public class WeixinServlet extends HttpServlet {
 		String conntent = map.get("Content");
 		
 		String message=null;
-		if("text".equals(msgtype)){
-			textnaessage tx = new textnaessage();
+		textnaessage tx = new textnaessage();
+		if("text".equals(msgtype)){		
 			tx.setFromUserName(tousername);
 			tx.setToUserName(fromusername);
 			tx.setMsgType(msgtype);
 			tx.setCreateTime(new Date().toString());
 			tx.setContent("你说的是："+conntent);
-			message = messagexml.textmessageTOxml(tx);
-			System.out.println(message);
+		}else{
+			tx.setContent("对不起，我还不能回答除文字以外的问题");
 		}
+		message = messagexml.textmessageTOxml(tx);
+		System.out.println(message);
 		out.print(message);
        
        
