@@ -54,19 +54,16 @@ public class WeixinServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//request.setCharacterEncoding("gbk");
-		//response.setCharacterEncoding("gbk");
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
        PrintWriter out = response.getWriter();
-
-    	   messagexml mp = new messagexml();
-    	  
+	   messagexml mp = new messagexml();   	  
 		Map<String, String> map =mp.xmltomap(request);
-		//Map<String, String> map =new HashMap<String,String>();
-		
+		//Map<String, String> map =new HashMap<String,String>();		
 		String fromusername = map.get("FromUserName");
 		String tousername = map.get("ToUserName");
 		String msgtype = map.get("MsgType");
-		String conntent = map.get("Conntent");
+		String conntent = map.get("Content");
 		
 		String message=null;
 		if("text".equals(msgtype)){
@@ -75,7 +72,7 @@ public class WeixinServlet extends HttpServlet {
 			tx.setToUserName(fromusername);
 			tx.setMsgType(msgtype);
 			tx.setCreateTime(new Date().toString());
-			tx.setContent("浣犲彂鐨勬秷鎭槸锛�"+conntent);
+			tx.setContent("你说的是："+conntent);
 			message = messagexml.textmessageTOxml(tx);
 			System.out.println(message);
 		}

@@ -50,8 +50,6 @@ public class messagexml {
 	  
 	  public static String textmessageTOxml(textnaessage str){
 		XStream xr = new XStream();
-		System.out.println("99999999999999999999999999");
-		System.out.println(str.getClass());
 		xr.alias("xml", str.getClass());
 		return xr.toXML(str);
 	  }
