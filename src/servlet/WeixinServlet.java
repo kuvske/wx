@@ -14,6 +14,7 @@ import org.dom4j.DocumentException;
 
 import pojo.textnaessage;
 import util.CheckUtil;
+import util.InitMessage;
 import util.messagexml;
 
 /**
@@ -58,25 +59,17 @@ public class WeixinServlet extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
        PrintWriter out = response.getWriter();
 	   messagexml mp = new messagexml();   	  
-		Map<String, String> map =mp.xmltomap(request);
-		//Map<String, String> map =new HashMap<String,String>();		
-		String fromusername = map.get("FromUserName");
-		String tousername = map.get("ToUserName");
-		String msgtype = map.get("MsgType");
-		String conntent = map.get("Content");
-		
-		String message=null;
-		textnaessage tx = new textnaessage();
-		if("text".equals(msgtype)){		
-			tx.setFromUserName(tousername);
-			tx.setToUserName(fromusername);
-			tx.setMsgType(msgtype);
-			tx.setCreateTime(new Date().toString());
-			tx.setContent("你说的是："+conntent);
+	   Map<String, String> map =mp.xmltomap(request);
+       String message=null;
+		InitMessage im=new	InitMessage();
+		if(map.get("Content").equals("1")){
+			 message=im.getnewsmessage(map);
+		}else if (map.get("Content").equals("?") || map.get("Content").equals("？")){
+			
+			message=im.gethelpmessage(map);
 		}else{
-			tx.setContent("对不起，我还不能回答除文字以外的问题");
+			message=im.gettextmessage(map);
 		}
-		message = messagexml.textmessageTOxml(tx);
 		System.out.println(message);
 		out.print(message);
        
