@@ -2,7 +2,7 @@ package util;
 
 import java.util.*;
 public class CheckUtil {
-	private static final String token="zsweix";
+	private static final String token="112233";
 	
 	  public static boolean checkSignature(String signature,String timestamp,String nonce){
 		 String [] arr =new String[]{token,timestamp,nonce};
@@ -15,6 +15,7 @@ public class CheckUtil {
 		 }
 		String mm = jiami.SHA1(content.toString());
 		//return false;
+		System.out.println("加密得到的是:"+mm +"传递过来的是"+signature);
 		  return mm.equals(signature);
 	  }
 }

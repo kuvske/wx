@@ -13,12 +13,14 @@ import org.json.JSONObject;
 
 import com.google.gson.Gson;
 
+import button.Menu;
 import pojo.AccessToken;
 
 public class weixinutil {
-  private static final String APPID="wxbdd6cd5754a3a493";
-  private static final String APPSECRET="f1a701bff9abda6661e81c7be12b781b";
- 
+//  private static final String APPID="wxbdd6cd5754a3a493";
+//  private static final String APPSECRET="f1a701bff9abda6661e81c7be12b781b";
+  private static final String APPID="wx9862b618adc4fcc0";
+  private static final String APPSECRET="854443232d7a8c2b75fbb289fa6310af";
   public static AccessToken getAccessToken(){
 	  AccessToken token = new AccessToken();
 	  String url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid="+APPID+"&secret="+APPSECRET;
@@ -30,6 +32,17 @@ public class weixinutil {
 	  return token;
   }
   
+  public static int getmenu(String token,String menu){
+	  int i = 0;
+	  String url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token="+token;
+	  JSONObject jsonbject = dopostStr(url,menu);
+	  if(jsonbject != null){
+		  return i=jsonbject.getInt("errcode");
+	  }else{
+		  return i;
+	  }
+	 
+  }
   
   public static JSONObject dopostStr(String url,String outStr){
 	 //用http去实现
@@ -39,8 +52,10 @@ public class weixinutil {
 	  JSONObject jsonObject =null;
 	 // 
 	  try {
+		  //设置dopos 的参数
 		  StringEntity stringentity = new StringEntity(outStr,"utf-8");
 		  httppost.setEntity(stringentity);
+		  
 		HttpResponse response=httpClient.execute(httppost);
 	    HttpEntity entity = response.getEntity();
 		String result = EntityUtils.toString(entity,"utf-8");

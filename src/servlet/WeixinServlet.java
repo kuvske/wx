@@ -44,6 +44,10 @@ public class WeixinServlet extends HttpServlet {
 		String timestamp = request.getParameter("timestamp");
 		String nonce = request.getParameter("nonce");
 		String echostr = request.getParameter("echostr");
+		System.out.println(echostr);
+		System.out.println(nonce);
+		System.out.println(timestamp);
+		System.out.println(signature);
 		PrintWriter out = response.getWriter();
 		CheckUtil ck = new CheckUtil();
 		
